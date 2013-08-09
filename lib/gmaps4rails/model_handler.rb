@@ -6,7 +6,7 @@ module Gmaps4rails
     
     extend Forwardable
     def_delegators :@options, :process_geocoding, :check_process, :checker, :lat_column, :lng_column, 
-                   :position, :msg, :validation, :language, :protocol, :address, :callback, :normalized_address
+                   :position, :msg, :validation, :language, :protocol, :address, :callback, :normalized_address, :use_geoservicen
       
     def initialize(object, gmaps4rails_options)
       @options = ::OpenStruct.new(gmaps4rails_options)
@@ -61,7 +61,11 @@ module Gmaps4rails
     end
     
     def get_coordinates
-      Gmaps4rails.geocode(object.send(address), language, false, protocol)
+      if use_geoservicen?
+        Gmaps4rails.geoservicen_geocode(object.send(address), false, protocol)
+      else
+        Gmaps4rails.geocode(object.send(address), language, false, protocol)
+      end
     rescue GeocodeStatus, GeocodeInvalidQuery => e  #address was invalid, add error to address.
       Rails.logger.warn(e)
       object.errors[address] << msg if condition_eval(object, validation)
@@ -80,6 +84,14 @@ module Gmaps4rails
         condition_eval(object, check_process) && object.send(checker)
       else
         !condition_eval(object, process_geocoding)
+      end
+    end
+
+    def use_geoservicen?
+      if use_geoservicen.is_a?(TrueClass) || process_geocoding.is_a?(FalseClass)
+        condition_eval(object, use_geoservicen)
+      else
+        false
       end
     end
     

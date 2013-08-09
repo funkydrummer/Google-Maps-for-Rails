@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 module Gmaps4rails
   
   module BaseNetMethods
@@ -7,6 +9,10 @@ module Gmaps4rails
   
       raise_query_error unless valid_parsed_response?
   
+      yield
+    end
+
+    def checked_geoservicen_response(&block)
       yield
     end
 
@@ -28,6 +34,10 @@ module Gmaps4rails
 
     def parsed_response
       @parsed_response ||= JSON.parse(response.body)
+    end
+
+    def parsed_xml_response
+      @parsed_xml_response ||= Nokogiri::XML(response.body)
     end
     
     def get_response

@@ -18,6 +18,7 @@ module Gmaps4rails
   
   autoload :BaseNetMethods,   'gmaps4rails/api_wrappers/base_net_methods'
   autoload :Geocoder,         'gmaps4rails/api_wrappers/geocoder'
+  autoload :Geoservicen,      'gmaps4rails/api_wrappers/geoservicen'
   autoload :Direction,        'gmaps4rails/api_wrappers/direction'
   autoload :Places,           'gmaps4rails/api_wrappers/places'
   autoload :ObjectAccessor,   'gmaps4rails/object_accessor'
@@ -39,7 +40,14 @@ module Gmaps4rails
       :protocol => protocol
     }).get_coordinates
   end
-  
+
+  def Gmaps4rails.geoservicen_geocode(address, raw = false,  protocol = "http")
+    ::Gmaps4rails::Geoservicen.new(address, { 
+      raw: raw, 
+      protocol: protocol 
+    }).get_coordinates
+  end
+
   def Gmaps4rails.create_json(object, &block)
     ::Gmaps4rails::JsonBuilder.new(object).process(&block)
   end

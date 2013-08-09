@@ -43,7 +43,8 @@ module Gmaps4rails
             
             :address            => args[:address]                || "gmaps4rails_address",
             :callback           => args[:callback],
-            :normalized_address => args[:normalized_address]
+            :normalized_address => args[:normalized_address],
+            :use_geoservicen    => args[:use_geoservicen].nil?   ?  false : args[:use_geoservicen]
           }
         end
         
