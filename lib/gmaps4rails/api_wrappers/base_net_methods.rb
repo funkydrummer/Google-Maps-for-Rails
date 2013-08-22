@@ -1,5 +1,3 @@
-require 'nokogiri'
-
 module Gmaps4rails
   
   module BaseNetMethods
@@ -36,10 +34,6 @@ module Gmaps4rails
       @parsed_response ||= JSON.parse(response.body)
     end
 
-    def parsed_xml_response
-      @parsed_xml_response ||= Nokogiri::XML(response.body)
-    end
-    
     def get_response
       url = URI.parse(base_url)
       http = Gmaps4rails.http_agent

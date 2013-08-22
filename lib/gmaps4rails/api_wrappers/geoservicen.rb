@@ -22,21 +22,23 @@ module Gmaps4rails
     # - full_data:       facultative
     def get_coordinates
       checked_geoservicen_response do
-        return parsed_xml_response if raw
+        return parsed_response if raw
 
         data = {}
-        data[:lat] = parsed_xml_response.xpath("//adgangsadresser/adgangsadresse/wgs84koordinat/bredde").text.to_f
-        data[:lng] = parsed_xml_response.xpath("//adgangsadresser/adgangsadresse/wgs84koordinat/længde").text.to_f
-        data[:oest] = parsed_xml_response.xpath("//adgangsadresser/adgangsadresse/etrs89koordinat/oest").text.to_f
-        data[:nord] = parsed_xml_response.xpath("//adgangsadresser/adgangsadresse/etrs89koordinat/nord").text.to_f
-        [data]
+        data[:lat] = parsed_response.first["wgs84koordinat"]["bredde"]
+        data[:lng] = parsed_response.first["wgs84koordinat"]["længde"]
+        data[:oest] = parsed_response.first["etrs89koordinat"]["oest"]
+        data[:nord] = parsed_response.first["etrs89koordinat"]["nord"]
+        data[:results] = parsed_response.first
+        
+        [data.with_indifferent_access]
       end
     end
     
     private
     
     def base_request
-      "#{protocol}://geo.oiorest.dk/adresser?q=#{address}"
+      "#{protocol}://geo.oiorest.dk/adresser.json?q=#{address}"
     end
     
     def raise_net_status
