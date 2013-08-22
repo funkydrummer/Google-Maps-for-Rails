@@ -9,6 +9,9 @@ class CreateUsers < ActiveRecord::Migration
       t.float :latitude
       t.float :longitude
       t.boolean :gmaps
+      t.string :country
+      t.float :oest
+      t.float :nord
 
       t.timestamps
     end

@@ -88,13 +88,15 @@ module Gmaps4rails
     end
 
     def use_geoservicen?
-      if use_geoservicen.is_a?(TrueClass) || process_geocoding.is_a?(FalseClass)
+      if use_geoservicen.is_a?(TrueClass) || use_geoservicen.is_a?(FalseClass)
         condition_eval(object, use_geoservicen)
+      elsif use_geoservicen.is_a? Symbol
+        condition_eval(object, use_geoservicen) && object.send(use_geoservicen)
       else
         false
       end
     end
-    
+
     # Do we have to check the geocoding 
     def check_geocoding?
       if process_geocoding.is_a?(TrueClass) || process_geocoding.is_a?(FalseClass)
@@ -103,7 +105,7 @@ module Gmaps4rails
         false
       end
     end
-    
+
     def condition_eval(*args)
       Gmaps4rails.condition_eval(*args)
     end
