@@ -25,12 +25,15 @@ module Gmaps4rails
         return parsed_response if raw
 
         data = {}
+
+        return [{}] unless parsed_response.first
+
         data[:lat] = parsed_response.first["wgs84koordinat"]["bredde"]
         data[:lng] = parsed_response.first["wgs84koordinat"]["længde"]
         data[:oest] = parsed_response.first["etrs89koordinat"]["oest"]
         data[:nord] = parsed_response.first["etrs89koordinat"]["nord"]
         data[:results] = parsed_response.first
-        
+
         [data.with_indifferent_access]
       end
     end
