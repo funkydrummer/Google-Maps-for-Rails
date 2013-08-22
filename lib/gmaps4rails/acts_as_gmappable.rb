@@ -30,6 +30,8 @@ module Gmaps4rails
                                                                  
             :lat_column         => args[:lat]                    || "latitude",
             :lng_column         => args[:lng]                    || "longitude",
+            :oest_column       => args[:oest]                    || "oest",
+            :nord_column       => args[:nord]                    || "nord",
 
             # purposefully no default. 
             # Leaving out the :position arg means we are using the default lat/lng to store coordinates

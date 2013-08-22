@@ -5,7 +5,7 @@ module Gmaps4rails
     attr_accessor :options, :object 
     
     extend Forwardable
-    def_delegators :@options, :process_geocoding, :check_process, :checker, :lat_column, :lng_column, 
+    def_delegators :@options, :process_geocoding, :check_process, :checker, :lat_column, :lng_column, :oest_column, :nord_column,
                    :position, :msg, :validation, :language, :protocol, :address, :callback, :normalized_address, :use_geoservicen
       
     def initialize(object, gmaps4rails_options)
@@ -18,6 +18,8 @@ module Gmaps4rails
       return if prevent_geocoding?
       checked_coordinates do
         position? ? set_position : set_lat_lng
+
+        set_oest_nord if use_geoservicen?
         # save normalized address if required
         object.send("#{normalized_address}=", coordinates.first[:matched_address]) if normalized_address
         # Call the callback method to let the user do what he wants with the data
@@ -39,6 +41,11 @@ module Gmaps4rails
       object.send("#{lng_column}=", lng)
       object.send("#{lat_column}=", lat)
     end
+    
+    def set_oest_nord
+      object.send("#{oest_column}=", oest)
+      object.send("#{nord_column}=", nord)
+    end
 
     def lat
       coordinates.first[:lat]
@@ -46,6 +53,14 @@ module Gmaps4rails
 
     def lng
       coordinates.first[:lng]
+    end
+
+    def oest
+      coordinates.first[:oest]
+    end
+
+    def nord
+      coordinates.first[:nord]
     end
 
     def position?

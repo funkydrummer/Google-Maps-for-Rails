@@ -25,10 +25,11 @@ module Gmaps4rails
         return parsed_xml_response if raw
 
         data = {}
-        data["lat"] = parsed_xml_response.xpath("//adgangsadresser/adgangsadresse/wgs84koordinat/bredde").text
-        data["lng"] = parsed_xml_response.xpath("//adgangsadresser/adgangsadresse/wgs84koordinat/længde").text
-
-        data 
+        data[:lat] = parsed_xml_response.xpath("//adgangsadresser/adgangsadresse/wgs84koordinat/bredde").text.to_f
+        data[:lng] = parsed_xml_response.xpath("//adgangsadresser/adgangsadresse/wgs84koordinat/længde").text.to_f
+        data[:oest] = parsed_xml_response.xpath("//adgangsadresser/adgangsadresse/etrs89koordinat/oest").text.to_f
+        data[:nord] = parsed_xml_response.xpath("//adgangsadresser/adgangsadresse/etrs89koordinat/nord").text.to_f
+        [data]
       end
     end
     
