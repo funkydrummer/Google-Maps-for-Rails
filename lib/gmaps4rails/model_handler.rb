@@ -6,7 +6,8 @@ module Gmaps4rails
     
     extend Forwardable
     def_delegators :@options, :process_geocoding, :check_process, :checker, :lat_column, :lng_column, :oest_column, :nord_column,
-                   :position, :msg, :validation, :language, :protocol, :address, :callback, :normalized_address, :use_geoservicen
+                   :position, :msg, :validation, :language, :protocol, :address, :callback, :normalized_address, :use_geoservicen,
+                   :geoservicen_address
       
     def initialize(object, gmaps4rails_options)
       @options = ::OpenStruct.new(gmaps4rails_options)
@@ -77,7 +78,7 @@ module Gmaps4rails
     
     def get_coordinates
       if use_geoservicen?
-        Gmaps4rails.geoservicen_geocode(object.send(address), false, protocol)
+        Gmaps4rails.geoservicen_geocode(object.send(geoservicen_address), false, protocol)
       else
         Gmaps4rails.geocode(object.send(address), language, false, protocol)
       end

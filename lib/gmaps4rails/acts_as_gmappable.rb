@@ -44,6 +44,7 @@ module Gmaps4rails
             :protocol           => args[:protocol]               || "http",
             
             :address            => args[:address]                || "gmaps4rails_address",
+            :geoservicen_address=> args[:geoservicen_address]    || "geoservicen_address",
             :callback           => args[:callback],
             :normalized_address => args[:normalized_address],
             :use_geoservicen    => args[:use_geoservicen].nil?   ?  false : args[:use_geoservicen]

@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(:version => 20120408170155) do
     t.string   "country"
     t.decimal  "oest",         :precision => 10, :scale => 6
     t.decimal  "nord",         :precision => 10, :scale => 6
+    t.string   "town"
+    t.string   "zip_code"
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
   end

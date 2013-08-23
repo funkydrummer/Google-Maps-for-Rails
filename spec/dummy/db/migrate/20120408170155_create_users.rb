@@ -9,9 +9,12 @@ class CreateUsers < ActiveRecord::Migration
       t.decimal :latitude, precision: 18, scale: 15
       t.decimal :longitude, precision: 18, scale: 15
       t.boolean :gmaps
+
       t.string :country
       t.decimal :oest, precision: 10, scale: 6 
       t.decimal :nord, precision: 10, scale: 6 
+      t.string :town
+      t.string :zip_code 
 
       t.timestamps
     end
