@@ -11,6 +11,8 @@ module Gmaps4rails
     end
 
     def checked_geoservicen_response(&block)
+      raise_net_status unless valid_response?
+
       yield
     end
 
