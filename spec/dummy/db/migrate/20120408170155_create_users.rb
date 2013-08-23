@@ -6,12 +6,12 @@ class CreateUsers < ActiveRecord::Migration
       t.string :norm_address
       t.string :sec_address
       t.string :picture
-      t.float :latitude
-      t.float :longitude
+      t.decimal :latitude, precision: 18, scale: 15
+      t.decimal :longitude, precision: 18, scale: 15
       t.boolean :gmaps
       t.string :country
-      t.float :oest
-      t.float :nord
+      t.decimal :oest, precision: 10, scale: 6 
+      t.decimal :nord, precision: 10, scale: 6 
 
       t.timestamps
     end

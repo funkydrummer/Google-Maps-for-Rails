@@ -19,14 +19,14 @@ ActiveRecord::Schema.define(:version => 20120408170155) do
     t.string   "norm_address"
     t.string   "sec_address"
     t.string   "picture"
-    t.float    "latitude"
-    t.float    "longitude"
+    t.decimal  "latitude",     :precision => 18, :scale => 15
+    t.decimal  "longitude",    :precision => 18, :scale => 15
     t.boolean  "gmaps"
     t.string   "country"
-    t.float    "oest"
-    t.float    "nord"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.decimal  "oest",         :precision => 10, :scale => 6
+    t.decimal  "nord",         :precision => 10, :scale => 6
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
   end
 
 end
