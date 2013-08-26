@@ -1,17 +1,19 @@
 module Gmaps4rails
-  
+
   module BaseNetMethods
 
     def checked_google_response(&block)
       raise_net_status unless valid_response?
-  
+
       raise_query_error unless valid_parsed_response?
-  
+
       yield
     end
 
     def checked_geoservicen_response(&block)
       raise_net_status unless valid_response?
+
+      raise_query_error unless valid_parsed_response_if_geoservicen?
 
       yield
     end
@@ -30,6 +32,10 @@ module Gmaps4rails
 
     def valid_parsed_response?
       parsed_response["status"] == "OK"
+    end
+    
+    def valid_parsed_response_if_geoservicen?
+      parsed_response.present?
     end
 
     def parsed_response

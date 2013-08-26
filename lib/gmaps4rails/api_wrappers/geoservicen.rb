@@ -49,7 +49,7 @@ module Gmaps4rails
     end
     
     def raise_query_error
-      raise Gmaps4rails::GeocodeStatus, "The address you passed seems invalid, status was: #{parsed_response["status"]}.\nRequest was: #{base_request}"
+      raise Gmaps4rails::GeocodeStatus, "The address you passed seems invalid. Request was: #{base_request}"
     end
     
   end
