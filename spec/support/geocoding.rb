@@ -36,5 +36,16 @@ module Geocoding
         [{:lat=>43.124228, :lng=>5.928, :matched_address=>"Toulon, France", :bounds=>{"northeast"=>{"lat"=>43.171673, "lng"=>5.987382999999999}, "southwest"=>{"lat"=>43.101049, "lng"=>5.879479}}, :full_data=>{"address_components"=>[{"long_name"=>"Toulon", "short_name"=>"Toulon", "types"=>["locality", "political"]}, {"long_name"=>"Var", "short_name"=>"83", "types"=>["administrative_area_level_2", "political"]}, {"long_name"=>"Provence-Alpes-Cote d'Azur", "short_name"=>"PACA", "types"=>["administrative_area_level_1", "political"]}, {"long_name"=>"France", "short_name"=>"FR", "types"=>["country", "political"]}], "formatted_address"=>"Toulon, France", "geometry"=>{"bounds"=>{"northeast"=>{"lat"=>43.171673, "lng"=>5.987382999999999}, "southwest"=>{"lat"=>43.101049, "lng"=>5.879479}}, "location"=>{"lat"=>43.124228, "lng"=>5.928}, "location_type"=>"APPROXIMATE", "viewport"=>{"northeast"=>{"lat"=>43.156795, "lng"=>5.9920297}, "southwest"=>{"lat"=>43.0916437, "lng"=>5.8639703}}}, "types"=>["locality", "political"]}}]
       end
     end
+
+    Gmaps4rails.stub(:geoservicen_geocode) do |*args|
+      case args[0]
+      when "Kastanievej 15 8660 Skanderborg"
+        [{:lat=>48.856614, :lng=>2.3522219, :oest=>68.684324324, nord: 56.2132132}]
+      when "home"
+        raise Gmaps4rails::GeocodeStatus
+      else
+        [{:lat=>48.856614, :lng=>2.3522219, :oest=>68.684324324, nord: 56.2132132}]
+      end
+    end
   end
 end
